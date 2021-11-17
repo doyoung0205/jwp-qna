@@ -12,7 +12,6 @@ import qna.domain.user.User;
 import qna.domain.vo.Contents;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,9 +43,6 @@ public class Answer extends BaseTimeEntity {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", foreignKey = @ForeignKey(name = "fk_answer_to_question"))
     private Question question;
-
-    @Column(name = "question_id", insertable = false, updatable = false)
-    private Long questionId;
 
     @Embedded
     private Contents contents;
@@ -132,10 +128,6 @@ public class Answer extends BaseTimeEntity {
 
     public User getWriter() {
         return writer;
-    }
-
-    public Long getQuestionId() {
-        return this.questionId;
     }
 
     public Question getQuestion() {

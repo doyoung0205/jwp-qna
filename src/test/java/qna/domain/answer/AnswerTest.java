@@ -88,7 +88,7 @@ public class AnswerTest {
                 )
         );
         // when
-        final List<Answer> foundAnswers = answerRepository.findByQuestionId(question.getId());
+        final List<Answer> foundAnswers = answerRepository.findByQuestion(question);
         // then
         assertAll(() -> {
             assertTrue(foundAnswers.contains(notDeletedAnswer1));
