@@ -111,7 +111,7 @@ public class AnswerTest {
         // when
         answer.updateWriter(newUser);
         answerRepository.flush();
-        answer.userClear();
+        answer.clearUser();
         answerRepository.flush();
         // then
         assertThat(answerRepository.findById(savedAnswer.getId()).get().getWriter()).isNull();

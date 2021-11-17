@@ -100,7 +100,7 @@ public class Answer extends BaseTimeEntity {
         return DeleteHistory.ofAnswer(this.id, this.writer);
     }
 
-    public void userClear() {
+    public void clearUser() {
         this.writer = null;
     }
 
