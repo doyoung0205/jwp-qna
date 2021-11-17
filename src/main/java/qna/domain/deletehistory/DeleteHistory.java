@@ -1,34 +1,29 @@
 package qna.domain.deletehistory;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import qna.UnAuthorizedException;
+import qna.domain.BaseTimeEntity;
 import qna.domain.user.User;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-public class DeleteHistory {
+@AttributeOverride(name = "createdAt", column = @Column(name = "createDate"))
+public class DeleteHistory extends BaseTimeEntity {
 
     @EmbeddedId
     private DeleteHistoryId deleteHistoryId;
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "deleted_by_id", foreignKey = @ForeignKey(name = "fk_delete_history_to_user"))
     private User deletedByUser;
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createDate;
 
     protected DeleteHistory() {
     }
@@ -73,7 +68,7 @@ public class DeleteHistory {
         return "DeleteHistory{" +
                 "deleteHistoryId=" + deleteHistoryId +
                 ", deletedByUser=" + deletedByUser +
-                ", createDate=" + createDate +
+                ", createDate=" + getCreatedAt() +
                 '}';
     }
 
