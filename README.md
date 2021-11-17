@@ -1,5 +1,14 @@
+### 3단계 피드백
+
+- [ ] deleted 의 인덱스가 바람직한가?
+- [ ] delete 를 여러번 하면 서능 이슈를 어떻게 해결 할 것 인가?
+- [ ] 복합키를 대리키로 변경 가능한가? + unique index (일관성 + 비즈니스)
+- [ ] DeleteHistory 의 createDate 를 BaseEntity 로 부터 Overriding 할 수 있도록
+- [ ] JPQL 보다는 @Param 을 사용해보도록
+
 ### 3단계 요구사항
-- ###`QnaService` 의 `deleteQuestion` 메소드 리팩토링 !!
+
+- ### `QnaService` 의 `deleteQuestion` 메소드 리팩토링 !!
 - 질문 데이터를 완전히 삭제하는 것이 아니라 데이터의 상태를 삭제 상태(deleted - boolean type)로 변경한다.
 - 로그인 사용자와 질문한 사람이 같은 경우 삭제할 수 있다.
 - 답변이 없는 경우 삭제가 가능하다.
@@ -8,17 +17,15 @@
 - 질문자와 답변자가 다른 경우 답변을 삭제할 수 없다.
 - 질문과 답변 삭제 이력에 대한 정보를 `DeleteHistory` 를 활용해 남긴다.
 
-
 ### 2단계 피드백
 - [x] `Answer` 의 영속 상태가 `User` 의 영속 상태까지 영향을 미치는 것에 대해서는 고민
   - 아무런 영향을 끼치면 안된다고 생각해서 처음에 cascade 옵션중 detach 를 사용
   - 하지만 어떤 옵션을 주더라도 Answer 로 부터 User 의 정보가 변경됨.
     - 다른 User 로 변경이 되더라도 해당 User 의 정보를 변경하지 못하게 해야 할 것 같음
 - [x] setDelete(true) 대신 delete()라고 객체에게 명확한 메시지명으로 메시지 전달
-- [x] `QuestionTest` 에서  id를 지정한 이유 고민 및 테스트 독립성 지키기
+- [x] `QuestionTest` 에서 id를 지정한 이유 고민 및 테스트 독립성 지키기
 - [x] `Answer` `toString` 메소드 에서 NPE 유발 방지
 - [x] `AnswerRepository` questionId 를 통해서 어떻게 가져올지 고민하기.
-
 
 ### 궁금한 사항
 - cascade 옵션 중 detach 를 사용하신 경험이 있으시다면 언제인지 알 수 있을 까요?
